@@ -4,7 +4,7 @@ Mandlebrot sets are fractal structures located in the complex plane. They are de
 
 The function ```generate_mandelbrot(num_points_to_plot, iteration_limit)```, takes two parameters, the first being the number of points to plot (large numbers of points can be very slow), and the second is the limit that decides how many iterations are allowed to check if a point is within the set.
 
-The script will output the results to a file storing the real values, the imaginary values and the escape iteration of the points. This file, plot.dat, can be displayed using gnuplot. Two sample plot.dat files can be found in the repository, one with 10 million and the other with 100 million points.
+The script will output the results to a file storing the real values, the imaginary values and the escape iteration of the points. This file, plot.dat, can be displayed using gnuplot.
 
 #####GNUPlot Commands:
 
