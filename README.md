@@ -7,7 +7,7 @@ The function ```generate_mandelbrot(num_points_to_plot, iteration_limit, data_fi
 The script will output the results to a file storing the real values, the imaginary values and the escape iteration of the points. This file, plot.dat, can be displayed using GNUplot.
 
 #####Usage:
-Run `include("Mandlebrot\ Fractals.jl")` and you will be guided through generating a Mandelbrot Set.
+Run `include("mandelbrot_area.jl")` and you will be guided through generating a Mandelbrot Set.
 
 #####GNUPlot Commands:
 
