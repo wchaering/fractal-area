@@ -8,7 +8,7 @@ function magnitude(cn)
 end
 
 """
-Find the number of iterations before point escapes.
+Recursively find the number of iterations before point escapes.
 """
 function find_escape_iteration(iteration, iteration_value, c, iteration_limit)
 	if iteration == iteration_limit
@@ -20,14 +20,13 @@ function find_escape_iteration(iteration, iteration_value, c, iteration_limit)
 		iteration+=1
 		find_escape_iteration(iteration, iteration_value, c, iteration_limit)
 	end
-	
 end
 
 """
 Using the Monte Carlo Method, get the area contained by the fractal.
 """
-function get_fractal_area_montecarlo(points_in_fractal, total_points, plot_size)
-	return(points_in_fractal/total_points)*plot_size
+function get_fractal_area_montecarlo(points_in_fractal, total_points, plot_area)
+	return(points_in_fractal/total_points)*plot_area
 end
 
 """
@@ -37,40 +36,53 @@ iterations it took before the point escaped (or if it ever does), and the natura
 of the escape iteration (to make the colors more vibrant).
 Write that matrix to a text file that can then be plotted by GNUPlot.
 """
-function generate_mandelbrot(num_points_to_plot, iteration_limit)
-	# Setting up
-	pointidx = 1
-	
+function generate_mandelbrot(num_points_to_plot, iteration_limit, data_file)
 	# Write arrays to memory
+	println("Setting up...")
 	real_values = zeros(num_points_to_plot)
 	imaginary_values = zeros(num_points_to_plot)
 	escape_iteration = zeros(num_points_to_plot)
 	log_escape_iteration = zeros(num_points_to_plot)
 	points_in_fractal = 0
 
-	while pointidx < num_points_to_plot
-		# Generate Random Complex Number
-		rpart = rand()*4-2 #Between -2 and 2
-		ipart = rand()*4-2 #Between -2 and 2
+
+	for i in 1:num_points_to_plot
+		real = 4 * rand() - 2 #Between -2 and 2
+		imaginary = 4 * rand() - 2 #Between -2 and 2
 		
-		c = complex(rpart, ipart)
-		start_value = complex(rpart, ipart)
+		c = complex(real, imaginary)
+		start_value = complex(real, imaginary)
 		iteration = find_escape_iteration(0, start_value, c, iteration_limit)
 
 		if iteration == iteration_limit
 			points_in_fractal += 1
 		end
 
-		real_values[pointidx] = rpart
-		imaginary_values[pointidx] = ipart
-		escape_iteration[pointidx] = iteration
-		log_escape_iteration[pointidx] = log(iteration)
-
-		pointidx+=1
+		real_values[i] = real
+		imaginary_values[i] = imaginary
+		escape_iteration[i] = iteration
+		log_escape_iteration[i] = log(iteration)
+		
+		if (i % 100 == 0)
+      		print("\r$(round(i/num_points_to_plot * 100))% done...")
+    	end
 	end
 
-	# Write to File
-	writedlm("plot.dat", [real_values imaginary_values escape_iteration log_escape_iteration], ' ')
 	area = get_fractal_area_montecarlo(points_in_fractal, num_points_to_plot, 16)
-	println("Fractal Area: ", area)
+	println("\nFractal Area Estimate: ", area)
+	
+	println("Writing Data to File...")
+	writedlm(data_file, [real_values imaginary_values escape_iteration log_escape_iteration], ' ')
+	println("Done!")
 end
+
+function query(m::AbstractString)
+  println(m)
+  print(">>>")
+  return chomp(readline())
+end
+
+points = eval(parse(query("How many points should be used?")))
+iterations = eval(parse(query("What is the iteration limit?")))
+data_file = query("What should the data file be called?")
+generate_mandelbrot(points, iterations, data_file)
