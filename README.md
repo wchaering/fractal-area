@@ -14,5 +14,3 @@ Run `include("mandelbrot_area.jl")` and you will be guided through generating a 
 1. Set Terminal type (JPEG to get an image): ```set term jpeg```
 2. Set output file (Again, set file to a .jpg): ```set output 'fractal.jpg'```
 3. Plot it: ```plot '<datafile.dat>' u 1:2:3 with dots palette```
-
-
