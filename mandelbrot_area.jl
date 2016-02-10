@@ -31,10 +31,8 @@ end
 
 """
 Plot a set number of randomly generated points, testing if each point is within the fractal or not.
-Then create a 4 column matrix of the real part, the imaginary part, the number of recursive
-iterations it took before the point escaped (or if it ever does), and the natural logarithm
-of the escape iteration (to make the colors more vibrant).
-Write that matrix to a text file that can then be plotted by GNUPlot.
+Write lines to a data file containing the real part, the imaginary part, the number of recursive
+iterations it took before the point escaped (if it does), and the log of the escape iteration.
 """
 function generate_mandelbrot(num_points_to_plot, iteration_limit, data_file, power)
 	println("Setting up...")
