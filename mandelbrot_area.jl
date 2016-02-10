@@ -37,44 +37,31 @@ of the escape iteration (to make the colors more vibrant).
 Write that matrix to a text file that can then be plotted by GNUPlot.
 """
 function generate_mandelbrot(num_points_to_plot, iteration_limit, data_file, power)
-	# Write arrays to memory
 	println("Setting up...")
-	real_values = zeros(num_points_to_plot)
-	imaginary_values = zeros(num_points_to_plot)
-	escape_iteration = zeros(num_points_to_plot)
-	log_escape_iteration = zeros(num_points_to_plot)
 	points_in_fractal = 0
-
+	outfile = open(data_file, "w")
 	for i in 1:num_points_to_plot
 		real = 4 * rand() - 2 #Between -2 and 2
 		imaginary = 4 * rand() - 2 #Between -2 and 2
-		
 		c = complex(real, imaginary)
 		start_value = complex(real, imaginary)
 		iteration = find_escape_iteration(0, start_value, c, iteration_limit, power)
-
 		if iteration == iteration_limit
 			points_in_fractal += 1
 		end
-
-		real_values[i] = real
-		imaginary_values[i] = imaginary
-		escape_iteration[i] = iteration
-		log_escape_iteration[i] = log(iteration)
-		
-		if (i % 100 == 0)
-      		print("\r$(round(i/num_points_to_plot * 100))% done...")
+		writedlm(outfile, [real imaginary  iteration log(iteration)], ' ')
+		if (i % (num_points_to_plot/1000) == 0)
+      		print("\r$(round(i/num_points_to_plot * 100, 2))% done...")
     	end
 	end
-
+	close(outfile)
 	area = get_fractal_area_montecarlo(points_in_fractal, num_points_to_plot, 16)
 	println("\nFractal Area Estimate: ", area)
-	
-	println("Writing Data to File...")
-	writedlm(data_file, [real_values imaginary_values escape_iteration log_escape_iteration], ' ')
-	println("Done!")
 end
 
+"""
+Iterate through a range of powers to generate mandelbrot sets for each
+"""
 function mandelbrot_powers(range, points, iterations, data_folder)
 	if (!isdir(data_folder))
 		mkdir(data_folder)
@@ -85,12 +72,18 @@ function mandelbrot_powers(range, points, iterations, data_folder)
 	end
 end
 
+"""
+Pretty print user input
+"""
 function query(m::AbstractString)
   println(m)
   print(">>>")
   return chomp(readline())
 end
 
+"""
+Verbose setup
+"""
 function user_setup()
 	single = query("Generate a single mandlebrot set (y/n)?")
 	if (single == "y")
