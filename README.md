@@ -1,4 +1,4 @@
-# Mandelbrot Area
+# Mandelbrot Set Generation
 
 Mandelbrot sets are fractal structures located in the complex plane. They are defined by the recursive formula Z<sub>n+1</sub> = Z<sup>2</sup><sub>n</sub> + c, where Z<sub>0</sub> = c. Randomly generated points are within the Mandelbrot set if |Z<sub>n</sub>| < 2 as n -> ∞, so for the script, an iteration limit is set where it can be said that the point stays within a finite radius as n -> ∞.
 
