@@ -42,8 +42,7 @@ function generate_mandelbrot(num_points_to_plot, iteration_limit, data_file, pow
 		real = 4 * rand() - 2 #Between -2 and 2
 		imaginary = 4 * rand() - 2 #Between -2 and 2
 		c = complex(real, imaginary)
-		start_value = complex(real, imaginary)
-		iteration = find_escape_iteration(0, start_value, c, iteration_limit, power)
+		iteration = find_escape_iteration(0, c, c, iteration_limit, power)
 		if iteration == iteration_limit
 			points_in_fractal += 1
 		end
