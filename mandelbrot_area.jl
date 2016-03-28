@@ -49,8 +49,8 @@ function generate_mandelbrot(num_points_to_plot, iteration_limit, data_file, pow
 		end
 		writedlm(outfile, [real imaginary  iteration log(iteration)], ' ')
 		if (i % (num_points_to_plot/1000) == 0)
-      		print("\r$(round(i/num_points_to_plot * 100, 2))% done...")
-    	end
+      			print("\r$(round(i/num_points_to_plot * 100, 2))% done...")
+    		end
 	end
 	close(outfile)
 	area = get_fractal_area_montecarlo(points_in_fractal, num_points_to_plot, 16)
