@@ -1,6 +1,6 @@
 # Mandelbrot Set Generation
 
-Mandelbrot sets are fractal structures located in the complex plane. They are defined by the recursive formula Z<sub>n+1</sub> = Z<sup>2</sup><sub>n</sub> + c, where Z<sub>0</sub> = c. Randomly generated points are within the Mandelbrot set if |Z<sub>n</sub>| < 2 as n -> ∞, so for the script, an iteration limit is set where it can be said that the point stays within a finite radius as n -> ∞.
+Mandelbrot sets are fractal structures located in the complex plane. They are defined by the recursive formula Z<sub>n+1</sub> = Z<sub>n</sub><sup>2</sup> + c, where Z<sub>0</sub> = c. Randomly generated points are within the Mandelbrot set if |Z<sub>n</sub>| < 2 as n -> ∞, so for the script, an iteration limit is set where it can be said that the point stays within a finite radius as n -> ∞.
 
 The function ```generate_mandelbrot(num_points_to_plot, iteration_limit, data_file, power)```, takes three arguments, the first is the number of points to plot (large numbers of points can be very slow), the second is the limit that decides how many iterations are allowed to check if a point is within the set (high iteration limits (> 300) can also be very slow), the third is the name of the data file to write to, and the fourth is the power to use in the recursive formula to generate the set.
 
