@@ -11,6 +11,6 @@ Run `include("mandelbrot_area.jl")` and you will be guided through generating a 
 
 #####GNUPlot Commands:
 
-1. Set Terminal type (JPEG to get an image): ```set term jpeg```
+1. Set Terminal type (JPEG to get an image): ```set terminal jpeg size 1920,1080```
 2. Set output file (Again, set file to a .jpg): ```set output 'fractal.jpg'```
 3. Plot it: ```plot '<datafile.dat>' u 1:2:3 with dots palette```
